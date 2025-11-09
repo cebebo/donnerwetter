@@ -9,7 +9,8 @@ let audio = [
     new Audio('./audio/regenbogen.mp3'), // 6
     new Audio('./audio/plus.mp3'),      // 7
     new Audio('./audio/minus.mp3'),      // 8
-    new Audio('./audio/sichern.mp3')      // 9
+    new Audio('./audio/sichern.mp3'),      // 9
+    new Audio('./audio/sieger.mp3')      // 10
 ];
 let team_1 = [0, 'blue'];
 let team_2 = [0, 'red'];
@@ -19,6 +20,7 @@ let team_5 = [0, 'orange'];
 let team_6 = [0, 'purple'];
 let teamColor = ['blue', 'red', 'yellow', 'green', 'orange', 'purple', 'turquoise', 'pink', 'brown', 'grey'];
 let chosenColors = [];
+let usedClouds = [];
 
 let activeTeam = 1;
 let amountTeams = 4;
@@ -33,6 +35,14 @@ function startGame(amount) {
     document.getElementById('background').innerHTML = startHTML;
     amountTeams = amount;
     generateSky();
+    fillUsedClouds();
+}
+
+
+function fillUsedClouds() {
+    for (i = 0; i < clouds; i++) {
+        usedClouds.push(true);
+    }
 }
 
 
@@ -62,7 +72,7 @@ function resetAll() {
 
 function generateSky() {
     const sky = document.getElementById('sky');
-    sky.innerHTML = ''; 
+    sky.innerHTML = '';
     curPointsNull()
     generateTeams();
     takeColorsFromTeams();
@@ -128,15 +138,18 @@ function randomClouds() {
 
 
 function cloudReaction(result, i) {
-    playSound(result);
-    document.getElementById(`cloud-${i}`).classList.add('fade_out');
-    document.getElementById(`nr-${i}`).classList.add('fade_out');
-    document.getElementById(`res-${i}`).classList.add('fade_in');
-    calculateResult(result);
-    cloudCounter++;
-    if (cloudCounter == clouds) { endgame = true; }
-    if (endgame) {
-        if (result != 'elster') { endGame(); }
+    if (usedClouds[i]) {
+        playSound(result);
+        document.getElementById(`cloud-${i}`).classList.add('fade_out');
+        document.getElementById(`nr-${i}`).classList.add('fade_out');
+        document.getElementById(`res-${i}`).classList.add('fade_in');
+        calculateResult(result);
+        cloudCounter++;
+        if (cloudCounter == clouds) { endgame = true; }
+        if (endgame) {
+            if (result != 'elster') { endGame(); }
+        }
+        usedClouds[i] = false;
     }
 }
 
@@ -472,13 +485,16 @@ function closeOptionBox() {
 function endGame() {
     sichern();
     sieger = checkWinner();
-    info = '';
-    if (sieger != 'Unentschieden') { info += `Gewonnen hat das Team:`; }
-    else { info += `Das Spiel endet mit einem`; }
-    let box = document.getElementById('optionBox');
-    let temp = endGameHTML(info, sieger);
-    box.innerHTML = temp;
-    box.classList.remove('d-none');
+    setTimeout(() => {
+        audio[10].play();
+        info = '';
+        if (sieger != 'Unentschieden') { info += `Gewonnen hat das Team:`; }
+        else { info += `Das Spiel endet mit einem`; }
+        let box = document.getElementById('optionBox');
+        let temp = endGameHTML(info, sieger);
+        box.innerHTML = temp;
+        box.classList.remove('d-none');
+    }, 2000);
 }
 
 
@@ -503,7 +519,7 @@ function checkWinner() {
 }
 
 
-function imprint (bol) {
+function imprint(bol) {
     imp = document.getElementById('offScreen');
     if (bol) imp.classList.remove('d-none');
     else imp.classList.add('d-none');
