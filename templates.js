@@ -52,12 +52,10 @@ const restartHTML = `
             <h2>Spielerklärung</h2>
             <p>Ziel des Spiels ist es am Ende die meisten Punkte auf dem Konto zu haben. Diese Punkte erreicht man durch
                 das Freilegen der grünen Zahlen auf dem Spielfeld. Diese verbergen sich hinter den weißen Wolken. Das
-                erste
-                Team sucht sich also eine Wolke aus und darf danach entscheiden, ob es in dieser Spielrunde weitere
-                Punkte
-                dazu sammeln will oder die Punkte sichern möchte. Nach dem Sichern ist das nächste Team an der Reihe.
-                Das Spiel endet, wenn sich alle Wolken am Himmel aufgelöst haben. Jedoch verbergen sich nicht nur Punkte
-                hinter den Wolken, sondern auch einige andere Ereignisse:
+                erste Team sucht sich also eine Wolke aus und darf danach entscheiden, ob es in dieser Spielrunde weitere
+                Punkte dazu sammeln will oder die Punkte sichern möchte. Es muss mindestens eine Wolke ausgewählt werden. 
+                Nach dem Sichern ist das nächste Team an der Reihe.Das Spiel endet, wenn sich alle Wolken am Himmel aufgelöst 
+                haben. Jedoch verbergen sich nicht nur Punkte hinter den Wolken, sondern auch einige andere Ereignisse:
             </p>
             <div class="iconInfos">
                 <div class="icon">
