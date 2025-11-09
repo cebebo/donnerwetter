@@ -1,0 +1,704 @@
+body {
+    margin: 0;
+    overflow: hidden;
+}
+
+html {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.menu {
+    display: flex;
+}
+
+.title {
+    height: 30vh;
+    border-radius: 50%;
+    margin-top: 32px;
+}
+
+.teamChoiceBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.teamChoice {
+    display: flex;
+    width: 500px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.teamPick {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: -120px;
+}
+
+.teamPick img {
+    width: 150px;
+}
+
+h3 {
+    font-size: 48px;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    position: relative;
+    top: -100px;
+}
+
+h3:hover {
+    color: red;
+    cursor: pointer;
+}
+
+.description {
+    width: 80%;
+    margin-top: 32px;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 25px;
+    text-align: center;
+    padding: 24px 56px;
+}
+
+.iconInfos {
+    display: flex;
+    flex-wrap: wrap;
+    height: 300px;
+    overflow-y: scroll;
+    justify-content: center;
+}
+
+.icon {
+    width: 250px;
+    background-color: white;
+    border-radius: 15px;
+    margin: 4px;
+}
+
+.icon img {
+    height: 100px;
+    padding-top: 12px;
+}
+
+.icon p {
+    padding: 12px;
+}
+
+button {
+    cursor: pointer;
+    z-index: 25;
+}
+
+h1 {
+    font-size: 72px;
+    width: 300px;
+    display: inline-block;
+    border-radius: 50%;
+    text-align: center;
+    filter: drop-shadow(0px 0px 10px white);
+    color: white;
+    font-weight: bold;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    margin: 15px;
+}
+
+.background {
+    width: 100%;
+    height: 100vh;
+    background-image: linear-gradient(to bottom, rgb(86, 189, 248), rgb(159, 214, 247));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sichernBox {
+    display: flex;
+    align-items: center;
+}
+
+.btn-neustart {
+    width: 100px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    background-color: rgb(188, 141, 233);
+    border-radius: 15px;
+    margin-top: 8px;
+    filter: drop-shadow(0px 0px 3px black);
+}
+
+.btn-sichern {
+    width: 200px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    background-color: rgb(4, 196, 4);
+    border-radius: 15px;
+    margin-left: 12px;
+    filter: drop-shadow(0px 0px 3px black);
+}
+
+.btn-sichern:hover {
+    background-color: rgb(59, 238, 59);
+    cursor: pointer;
+}
+
+.btn-neustart:hover {
+    background-color: rgb(119, 39, 156);
+    cursor: pointer;
+}
+
+.thunderstorm {
+    background-image: linear-gradient(to bottom, rgb(80, 79, 79), rgb(114, 114, 114)) !important;
+}
+
+.board {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    z-index: 3;
+    width: 100%;
+}
+
+.boardSide {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.jackpot {
+    font-size: 32px;
+    color: rgb(26, 117, 3);
+}
+
+.jackpotBox {
+    display: flex;
+    padding: 5px 10px;
+    border-radius: 15px;
+    background-color: rgb(226, 197, 66);
+    align-items: center;
+}
+
+.jackpotBox img {
+    height: 30px;
+    margin-right: 12px;
+}
+
+.sky {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 24px;
+}
+
+.IMGcloud {
+    width: 175px;
+    z-index: 1;
+}
+
+.cloud {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: -350px;
+    height: 100px;
+}
+
+.number {
+    position: relative;
+    width: 175px;
+    text-align: center;
+    left: -175px;
+    font-size: 40px;
+    color: rgb(86, 189, 248);
+    z-index: 2;
+}
+
+.number:hover {
+    color: rgb(189, 3, 3);
+    cursor: pointer;
+}
+
+.result {
+    position: relative;
+    width: 175px;
+    max-height: 100px;
+    display: flex;
+    justify-content: center;
+    left: -350px;
+    opacity: 0;
+}
+
+.result img {
+    max-width: 100px;
+    max-height: 80px;
+}
+
+.points {
+    width: 60%;
+    height: 80%;
+    text-align: center;
+    font-size: 45px;
+    border-radius: 50%;
+}
+
+.pointsDemoP {
+    font-size: 64px;
+    color: green;
+    padding: 31px;
+}
+
+.pointsDemoM {
+    font-size: 64px;
+    color: red;
+    padding: 31px;
+}
+
+.plus {
+    background-color: green;
+    color: rgb(253, 229, 93);
+}
+
+.minus {
+    background-color: red;
+    color: rgb(240, 155, 155);
+}
+
+.fade_in {
+    animation: fadeIn 1.5s forwards;
+}
+
+.fade_out {
+    animation: fadeOut 0.5s forwards;
+}
+
+/* .cloud_up {
+    margin-top: 15px;
+}
+
+.cloud_down {
+    margin-top: 10px;
+} */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+.teamBanner {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    background-color: yellow;
+    border: 2px solid black;
+    border-radius: 30px;
+    margin: 10px 10px 0px 10px;
+    height: 20px;
+}
+
+.teamBanner img {
+    width: 30px;
+    margin-right: 10px;
+}
+
+.teamPoints {
+    margin-left: 10px;
+    text-align: end;
+    font-size: 30px;
+    width: 80px;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 20px;
+    padding-right: 10px;
+}
+
+input {
+    font-size: 24px;
+    font-weight: bold;
+    border: 0;
+    background-color: rgba(255, 255, 255, 0);
+}
+
+.optionBox {
+    position: fixed;
+    top: calc(50% - 150px);
+    width: 500px;
+    height: 300px;
+    background-color: hsl(165, 95%, 36%);
+    border-radius: 25px;
+    filter: drop-shadow(0px 0px 8px black);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 50;
+}
+
+.colorPick {
+    opacity: 0.3;
+}
+
+.colorPick:hover {
+    opacity: 1;
+    cursor: pointer;
+}
+
+.color-blue {
+    background-color: rgb(74, 114, 247);
+}
+
+.color-red {
+    background-color: rgb(241, 75, 75);
+}
+
+.color-yellow {
+    background-color: rgb(211, 211, 1);
+}
+
+.color-green {
+    background-color: rgb(18, 196, 18);
+}
+
+.color-orange {
+    background-color: rgb(253, 155, 8);
+}
+
+.color-purple {
+    background-color: rgb(182, 107, 201);
+}
+
+.color-turquoise {
+    background-color: turquoise;
+}
+
+.color-pink {
+    background-color: rgb(240, 154, 168);
+}
+
+.color-brown {
+    background-color: rgb(165, 91, 42);
+}
+
+.color-grey {
+    background-color: rgb(155, 155, 155);
+}
+
+.pickColorBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    /* flex-wrap: wrap; */
+    justify-content: center;
+}
+
+.colorPalette {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 15px;
+    width: 400px;
+}
+
+.colorCircle {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin: 10px;
+    display: inline-block;
+    border: 2px solid black;
+}
+
+.colorCircle:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.closeButton {
+    font-size: 26px;
+    height: 30px;
+    width: 30px;
+    display: inline-block;
+    border-radius: 50%;
+    border: 2px solid black;
+    text-align: center;
+    background-color: hsl(165, 66%, 69%);
+}
+
+.restartButton {
+    font-size: 20px;
+    height: 24px;
+    width: 220px;
+    display: inline-block;
+    border-radius: 50%;
+    border: 2px solid black;
+    text-align: center;
+    background-color: hsl(165, 66%, 69%);
+    margin-bottom: 15px;
+}
+
+.closeButton:hover {
+    background-color: hsl(64, 90%, 60%);
+    cursor: pointer;
+}
+
+.restartButton:hover {
+    background-color: hsl(64, 90%, 60%);
+    cursor: pointer;
+}
+
+.d-none {
+    display: none !important;
+}
+
+.invisible {
+    opacity: 0;
+}
+
+.enemyBox {
+    font-size: 22px;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 20px;
+    border: solid 2px black;
+}
+
+.enemyBox:hover {
+    scale: 1.1;
+    cursor: pointer;
+}
+
+.infoText {
+    font-size: 28px;
+    color: aquamarine;
+    filter: drop-shadow(0px 0px 2px black);
+    margin-block-start: 0;
+    margin-block-end: 0;
+    margin-top: 12px;
+}
+
+.offScreen {
+    position: absolute;
+    top: 0;
+    top : 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgb(50, 61, 75);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.offScreen p {
+    margin-block-start: 0;
+    margin-block-end: 0;
+    margin-top: 6px;
+    color: white;
+}
+
+.offScreen h3 {
+    color: yellow;
+}
+
+a {
+    text-decoration: none;
+    color: aqua;
+}
+
+.imprint:hover {
+    cursor: pointer;
+    color: brown;
+}
+
+.author {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.notificationScreen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+/* -------------------- */
+
+
+@media (max-width: 1750px) {
+
+    .IMGcloud {
+        width: 150px;
+    }
+
+    .number {
+        width: 170px;
+        left: -160px;
+    }
+
+}
+
+@media (max-width: 1450px) {
+
+    .IMGcloud {
+        width: 120px;
+    }
+
+    .number {
+        width: 165px;
+        left: -140px;
+    }
+
+    .result img {
+        max-width: 60px;
+        max-height: 60px;
+    }
+
+    .result {
+        left: -310px;
+    }
+
+    .points {
+        width: 50%;
+        font-size: 32px;
+    }
+
+}
+
+@media (max-width: 1420px) {
+
+    input {
+        font-size: 20px;
+        width: 150px;
+    }
+
+}
+
+@media (max-width: 1210px) {
+
+    .IMGcloud {
+        width: 110px;
+    }
+
+    .cloud {
+        height: 70px;
+    }
+
+    .result img {
+        max-width: 50px;
+        max-height: 50px;
+    }
+
+    .points {
+        width: 42%;
+        font-size: 28px;
+    }
+
+    .number {
+        font-size: 30px;
+        left: -137px;
+    }
+
+}
+
+@media (max-width: 1080px) {
+
+    input {
+        font-size: 18px;
+        width: 120px;
+        font-weight: 100;
+    }
+
+    h1 {
+        font-size: 64px;
+        width: 250px;
+    }
+
+    .btn-sichern {
+        width: 150px;
+    }
+
+}
+
+
+@media (max-width: 970px) {
+
+    input {
+        font-size: 16px;
+        width: 100px;
+    }
+
+    h1 {
+        font-size: 56px;
+        width: 200px;
+    }
+
+    .btn-sichern {
+        width: 120px;
+        font-size: 24px;
+    }
+
+    .teamPoints {
+        margin-left: 4px;
+        text-align: end;
+        font-size: 24px;
+        width: 60px;
+        padding-right: 6px;
+    }
+
+    .jackpot {
+        font-size: 26px;
+    }
+
+}
+
+@media (max-width: 820px) {
+
+    .sky, .menu, .board, .description {
+        display: none;
+    }
+
+    .notificationScreen {
+        display: flex;
+    }
+
+}
