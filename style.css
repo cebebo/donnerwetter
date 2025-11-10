@@ -199,6 +199,11 @@ h1 {
     margin-right: 12px;
 }
 
+.jackpotIMG {
+    height: 20px !important;
+    padding-top: 0 !important;
+}
+
 .sky {
     display: flex;
     justify-content: center;
