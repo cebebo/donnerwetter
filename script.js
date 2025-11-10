@@ -67,6 +67,7 @@ function resetAll() {
     clouds = 55;
     cloudCounter = 0;
     endgame = false;
+    usedClouds = [];
 }
 
 
