@@ -11,10 +11,11 @@
     <script src="script.js"></script>
 </head>
 
-<body>
+<body onload="settingsMenu()">
     <div class="background" id="background">
-        <div class="menu">
+        <div class="menu">            
             <img class="title" src="./img/title.png">
+            <div class="settings" id="settings"></div>
             <div class="teamChoiceBox">
                 <h2>Wähle die Anzahl der Teams:</h2>
                 <div class="teamChoice">
@@ -40,6 +41,7 @@
                     </div>
                 </div>
             </div>
+            
         </div>
         <div class="description">
             <h2>Spielerklärung</h2>
@@ -126,7 +128,7 @@
     <div class="notificationScreen">
         <h3>GESPERRT!</h3>
         <img class="title" src="./img/title.png">
-        <p>Die Darstellung des Spiels ist bei der Bildschirmgröße auf diesem Gerät nicht möglich!</p>
+        <p>Die Darstellung des Spiels ist bei der Bildschirmgröße auf diesem Gerät nicht möglich! Donnerwetter ist konzipiert als Desktop/Fernseh-Variante!</p>
     </div>
 </body>
 

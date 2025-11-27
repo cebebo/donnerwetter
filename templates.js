@@ -2,7 +2,11 @@ const startHTML = `
         <div class="board" id="board">
             <div class="boardSide" id="left"></div>
             <div class="screen" id="screen">
-                <div class="btn-neustart" onclick="restartGame()">Neustart</div>
+                <div class="sichernBox">
+                    <div class="btn-neustart" onclick="restartGame(1)" style="margin-right: 16px;">Startseite</div>
+                    <div class="btn-neustart" onclick="restartGame(2)">Neustart</div>
+                </div>
+                
                 <h1 id="currentPoints">0</h1>
                 <div class="sichernBox">
                     <div class="jackpotBox">
@@ -22,6 +26,7 @@ const startHTML = `
 const restartHTML = `
         <div class="menu">
             <img class="title" src="./img/title.png">
+            <div class="settings" id="settings"></div>
             <div class="teamChoiceBox">
                 <h2>Wähle die Anzahl der Teams:</h2>
                 <div class="teamChoice">
@@ -140,7 +145,8 @@ const pickColorHTML = `
 function endGameHTML(info, sieger) {
     return `
     <div class="pickColorBox">
-    <div class="restartButton" onclick="restartGame()">Noch ein Spiel!</div>
+    <div class="restartButton" onclick="restartGame(1)">Zur Startseite!</div>
+    <div class="restartButton" onclick="restartGame(2)">Noch ein Spiel!</div>
         <p class="infoText">${info}</p>        
         <h2 class="enemyBox" style="background-color: white;">${sieger}</h2>
     </div>
@@ -159,7 +165,7 @@ function generateTeamsHTML(i, teamColor) {
     return `
             <div class="teamBanner color-${teamColor[i - 1]}" id="banner-${i}">
                 <img class="invisible" src="./img/pfeil.png">
-                <input type="text" id="teamName-${i}" placeholder="Teamname">
+                <input type="text" id="teamName-${i}" placeholder="Teamname"oninput="updateInsideText(${i})">
                 <img class="colorPick" src="./img/color.png" onclick="pickColor(${i})">
                 <div class="teamPoints" id="team_${i}_points" onclick="changeTeamManual(${i})">0</div>
             </div>
@@ -197,3 +203,11 @@ const imprintHTML = `
         <p>Alle Audio-Datein in diesem Spiel stammen von <a href="https://pixabay.com"
                 target="_blanc">https://pixabay.com</a></p>
 `
+
+function settingsHTML(img, i) {
+    return `
+        <div class="option" id="opt${img} onclick="clickSetting(${i})">
+            <img class="optImg" id="imgID${i}" src=./img/${img}.png onclick="clickSetting(${i})">
+        </div>
+    `
+}

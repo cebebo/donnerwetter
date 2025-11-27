@@ -21,6 +21,11 @@ let team_6 = [0, 'purple'];
 let teamColor = ['blue', 'red', 'yellow', 'green', 'orange', 'purple', 'turquoise', 'pink', 'brown', 'grey'];
 let chosenColors = [];
 let usedClouds = [];
+// Sturm, Ballon, Flugzeug, Elster, Regenbogen, Jackpot: -1: 10% / 0: aus / +1...: plus festen Wert
+let settings = [true, true, true, true, true, 0];
+let settingIMG = ['sturm', 'ballon', 'flugzeug', 'elster', 'regenbogen'];
+let jackpotSettings = ['Nur Sturm', 'Sturm & 10% der Wolke', 'Sturm & 20% der Wolke', 'Sturm & 5 Punkte/Wolke', 'Sturm & 8 Punkte/Wolke', 'Sturm & 10 Punkte/Wolke'];
+let jackpotSetIndex = 0;
 
 let activeTeam = 1;
 let amountTeams = 4;
@@ -29,6 +34,9 @@ let jackpot = 0;
 let clouds = 55;
 let cloudCounter = 0;
 let endgame = false;
+let jackpotGrow = 0;
+let saveBlocker = true;
+let teamNamesLog = ['Team 1', 'Team 2', 'Team 3', 'Team 4', 'Team 5', 'Team 6'];
 
 
 function startGame(amount) {
@@ -46,13 +54,79 @@ function fillUsedClouds() {
 }
 
 
-function restartGame() {
-    document.getElementById('background').innerHTML = restartHTML;
+function restartGame(choice) {
     resetAll();
+    if (choice == 1) {
+        document.getElementById('background').innerHTML = restartHTML;
+        settingsMenu();
+        resetComplete();
+    };
+    if (choice == 2) {
+        startGame(amountTeams);
+        fillTeamNames();
+    };        
+}
+
+
+function settingsMenu() {
+    let short = document.getElementById('settings');
+    short.innerHTML = '<h2>Einstellungen</h2>';
+    for (let i = 0; i < 5; i++) {
+        short.innerHTML += settingsHTML(settingIMG[i], [i])
+        if (settings[i]) { document.getElementById(`imgID${i}`).classList.add("activeOpt"); }
+        else { document.getElementById(`imgID${i}`).classList.remove("activeOpt"); }
+    }
+    short.innerHTML += '<span>Jackpot-Option:</span><br><div class="option" style="width: 320px;" id="jackpotChoice" onclick="changeJackpotOption()"></div>';
+    document.getElementById('jackpotChoice').innerHTML = `<span>${jackpotSettings[jackpotSetIndex]}</span>`;
+}
+
+
+function changeJackpotOption() {
+    jackpotSetIndex++;
+    if (jackpotSetIndex > 5) { jackpotSetIndex = 0 };
+    switch (jackpotSetIndex) {
+        case 0: settings[5] = 0; break;
+        case 1: settings[5] = -1; break;
+        case 2: settings[5] = -2; break;
+        case 3: settings[5] = 5; break;
+        case 4: settings[5] = 8; break;
+        case 5: settings[5] = 10; break;
+    }
+    clickSetting(5);
+    document.getElementById('jackpotChoice').innerHTML = `<span>${jackpotSettings[jackpotSetIndex]}</span>`;
+}
+
+
+function clickSetting(opt) {
+    if (opt < 5) { settings[opt] = !settings[opt]; }
+    else if (opt == 5) {
+        if (settings[5] == 0) { jackpotGrow = 0 }
+        if (settings[5] > 0) { jackpotGrow = settings[5] }
+        if (settings[5] == -1) { jackpotGrow = 0.1 }
+        if (settings[5] == -2) { jackpotGrow = 0.2 }
+    }
+    settingsMenu();
 }
 
 
 function resetAll() {
+    activeTeam = 1;
+    currentPoints = 0;
+    jackpot = 0;
+    clouds = 55;
+    cloudCounter = 0;
+    endgame = false;
+    usedClouds = [];
+    team_1[0] = 0;
+    team_2[0] = 0;
+    team_3[0] = 0;
+    team_4[0] = 0;
+    team_5[0] = 0;
+    team_6[0] = 0;
+}
+
+
+function resetComplete() {
     team_1 = [0, 'blue'];
     team_2 = [0, 'red'];
     team_3 = [0, 'yellow'];
@@ -60,23 +134,18 @@ function resetAll() {
     team_5 = [0, 'orange'];
     team_6 = [0, 'purple'];
     chosenColors = [];
-    activeTeam = 1;
     amountTeams = 4;
-    currentPoints = 0;
-    jackpot = 0;
-    clouds = 55;
-    cloudCounter = 0;
-    endgame = false;
-    usedClouds = [];
 }
 
 
 function generateSky() {
     const sky = document.getElementById('sky');
     sky.innerHTML = '';
-    curPointsNull()
-    generateTeams();
+    curPointsNull();
+    
     takeColorsFromTeams();
+    generateTeams();
+
     shuffleResults();
     deleteColorInPoints();
     changeColorInPoints();
@@ -92,9 +161,22 @@ function generateTeams() {
     let side = '';
     for (let i = 1; i <= amountTeams; i++) {
         if (i % 2 === 0) { side = 'right'; } else { side = 'left'; }
-        document.getElementById(`${side}`).innerHTML += generateTeamsHTML(i, teamColor);
+        document.getElementById(`${side}`).innerHTML += generateTeamsHTML(i, chosenColors);
     }
     showArrowOnActiveTeam();
+}
+
+
+function updateInsideText(i) {
+    const value = document.getElementById(`teamName-${i}`).value;
+    teamNamesLog[i-1] = value;
+}
+
+
+function fillTeamNames() {
+    for (let i = 0; i < amountTeams; i++) {
+        if (teamNamesLog[i]) { document.getElementById(`teamName-${i+1}`).value = teamNamesLog[i] }
+    }
 }
 
 
@@ -144,13 +226,32 @@ function cloudReaction(result, i) {
         document.getElementById(`cloud-${i}`).classList.add('fade_out');
         document.getElementById(`nr-${i}`).classList.add('fade_out');
         document.getElementById(`res-${i}`).classList.add('fade_in');
-        calculateResult(result);
-        cloudCounter++;
-        if (cloudCounter == clouds) { endgame = true; }
-        if (endgame) {
-            if (result != 'elster') { endGame(); }
+        if (settings[5] >= 0) { jackpot += jackpotGrow; }
+        else if (settings[5] < 0) {
+            if (result == 'p20' || result == 'p50' || result == 'p80' || result == 'p100' || result == 'p150') {
+                jackpot += jackpotProcent(result);
+            }
         }
-        usedClouds[i] = false;
+        showAllTeamsPoints();
+    }
+    calculateResult(result);
+    cloudCounter++;
+    if (cloudCounter == clouds) { endgame = true; }
+    if (endgame) {
+        if (result != 'elster') { endGame(); }
+    }
+    usedClouds[i] = false;
+    if (result != 'regen' || result != 'blitz') { saveBlocker = false; }
+}
+
+
+function jackpotProcent(result) {
+    switch (result) {
+        case 'p20': return jackpotGrow * 20; break;
+        case 'p50': return jackpotGrow * 50; break;
+        case 'p80': return jackpotGrow * 80; break;
+        case 'p100': return jackpotGrow * 100; break;
+        case 'p150': return jackpotGrow * 150; break;
     }
 }
 
@@ -224,11 +325,26 @@ function shuffleResults() {
         else if (rand === 25) results.push('p150');
         else if (rand <= 26) results.push('blitz');
         else if (rand <= 28) results.push('regen');
-        else if (rand <= 30) results.push('sturm');
-        else if (rand <= 32) results.push('elster');
-        else if (rand <= 33) results.push('flugzeug');
-        else if (rand <= 34) results.push('ballon');
-        else results.push('regenbogen');
+        else if (rand <= 30) {
+            if (settings[0]) { results.push('sturm'); }
+            else { results.push('m20'); }
+        }
+        else if (rand <= 32) {
+            if (settings[1]) { results.push('ballon'); }
+            else { results.push('p20'); }
+        }
+        else if (rand <= 33) {
+            if (settings[2]) { results.push('flugzeug'); }
+            else { results.push('p50'); }
+        }
+        else if (rand <= 34) {
+            if (settings[3]) { results.push('elster'); }
+            else { results.push('p50'); }
+        }
+        else if (rand <= 35) {
+            if (settings[4]) { results.push('regenbogen'); }
+            else { results.push('p80'); }
+        }
     }
     checkResults();
 }
@@ -270,6 +386,7 @@ function nextTeam() {
     showArrowOnActiveTeam();
     deleteColorInPoints();
     changeColorInPoints();
+    saveBlocker = true;
 }
 
 
@@ -309,24 +426,27 @@ function chooseTeam(num) {
 
 
 function sichern() {
-    switch (activeTeam) {
-        case 1:
-            team_1[0] += currentPoints; break;
-        case 2:
-            team_2[0] += currentPoints; break;
-        case 3:
-            team_3[0] += currentPoints; break;
-        case 4:
-            team_4[0] += currentPoints; break;
-        case 5:
-            team_5[0] += currentPoints; break;
-        case 6:
-            team_6[0] += currentPoints; break;
-    }
-    curPointsNull();
-    showAllTeamsPoints();
-    nextTeam();
-    audio[9].play();
+    if (!saveBlocker) {
+        switch (activeTeam) {
+            case 1:
+                team_1[0] += currentPoints; break;
+            case 2:
+                team_2[0] += currentPoints; break;
+            case 3:
+                team_3[0] += currentPoints; break;
+            case 4:
+                team_4[0] += currentPoints; break;
+            case 5:
+                team_5[0] += currentPoints; break;
+            case 6:
+                team_6[0] += currentPoints; break;
+        }
+        curPointsNull();
+        showAllTeamsPoints();
+        nextTeam();
+        audio[9].play();
+        saveBlocker = true;
+    } else { alert('Wähle mindestens eine Wolke aus, bevor du sichern kannst!'); }
 }
 
 
@@ -352,6 +472,7 @@ function blitz() {
 function regen() {
     curPointsNull();
     nextTeam();
+    setTimeout(() => { saveBlocker = true; }, 20);
 }
 
 
@@ -461,6 +582,12 @@ function changeTeamColor(team, color) {
     eraseOlderColors(team);
     document.getElementById(`banner-${team}`).classList.add(`color-${teamColor[color]}`);
     chosenColors[team - 1] = teamColor[color];
+    if (team == 1) team_1[1] = teamColor[color];
+    if (team == 2) team_2[1] = teamColor[color];
+    if (team == 3) team_3[1] = teamColor[color];
+    if (team == 4) team_4[1] = teamColor[color];
+    if (team == 5) team_5[1] = teamColor[color];
+    if (team == 6) team_6[1] = teamColor[color];
 }
 
 
